@@ -36,6 +36,10 @@ class Blockchain:
             "previous_hash": previous_hash,
         }
 
+        with open("block_data.txt",'a') as file:
+            file.write(str(block))
+            file.write('\n')
+
         return block
 
     def get_previous_block(self) -> dict:
