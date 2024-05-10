@@ -3,47 +3,25 @@ import hashlib
 import json
 
 
-# =========================================================================================================
-# This part is very very important! Comment this out later on!
-# private_key = SigningKey.generate(curve=NIST384p)  # uses NIST192p
-#
-# # The verifying key is like the public key in terms of public key cryptography
-# public_key = private_key.get_verifying_key()
-# =========================================================================================================
+def create_keys():
+    # private key are created here
+    private_key = SigningKey.generate(curve=NIST384p)
+    print(private_key)
 
-# signature = private_key.sign(b"Sample Digital Signature!")
+    # creating the public key from the
+    public_key = private_key.get_verifying_key()
+    print(public_key)
 
-# print(signature)
-# print("This is the type of the signature -------------------------------------")
-# print(type(signature))
-# print("This is the type of the signature -------------------------------------")
-#
-# # This is not working, so no need to store the signatures in files
-# with open('data.sig', 'wb') as file:
-#     file.write(signature)
-#
-# print("This is the verification status: ")
-# print(public_key.verify(signature, b"Sample Digital Signature!"))
-#
-# print("This is the public key or the verifying key: ")
-# print(public_key)
-# print(type(public_key))
-#
-# print("This is the private key: ")
-# print(private_key)
-# print(type(private_key))
+    return private_key, public_key
 
 
-# =========================================================================================================
-# This part is also very very important! Make sure to comment this out as well!
-# Storing the keys in the respective files
-# with open('sk.pem', 'wb') as file:
-#     file.write(private_key.to_pem())
-#
-# with open('vk.pem', 'wb') as file:
-#     file.write(public_key.to_pem())
-# ===========================================================================================================
+# Storing the public and the private keys
+def store_keys(private_key, public_key):
+    with open('sk.pem', 'wb') as file:
+        file.write(private_key.to_pem())
 
+    with open('vk.pem', 'wb') as file:
+        file.write(public_key.to_pem())
 
 
 def get_public_verifying_key():
@@ -54,42 +32,31 @@ def get_public_verifying_key():
 
 def get_private_signing_key():
     with open("sk.pem") as f:
-        sk = SigningKey.from_pem(f.read(), hashlib.sha256)
+        sk = SigningKey.from_pem(f.read())
         return sk
 
 
-def make_signature(data, node_private_key):
-    data = (data.encode('utf-8'))
-    txn_signature = node_private_key.sign(data)
+def make_signature(data):
+    node_private_key = get_private_signing_key()
+    txn_signature = node_private_key.sign(f"{data}".encode('utf-8'))
     return txn_signature
 
 
-def verify_signature(signature, data):
-    print("abra ka dabra !!!!!!!!!!!!!!!!!!!!!!!!!!!")
-    print(signature)
-    print(type(signature))
-    data = str(data)
-    print(data)
-    print(type(data))
-    # Serialize the list to JSON
-    json_data = json.dumps(data)
+def verify_signature(Signature, data):
+    node_public_key = get_public_verifying_key()
+    try:
+        Status = node_public_key.verify(Signature, f"{data}".encode('utf-8'))
 
-    # Encode the JSON string to bytes
-    bytes_data = json_data.encode('utf-8')
+    except:
+        Status = False
 
-    public_key = get_public_verifying_key()
-    status = public_key.verify(signature, bytes_data)
-    return status
+    return Status
 
-
-# if public_key == get_public_verifying_key():
-#     print("True, it is the same!")
-#
-# if private_key == get_private_signing_key():
-#     print("True, it is the same!")
-
-
-# signature = make_signature("This is a sample data",private_key)
-# print(f'THis is the signature {signature}')
-
-print(get_public_verifying_key())
+# print(get_public_verifying_key())
+# Signing_Key = get_private_signing_key()
+# print(Signing_Key)
+# print("This is the signature: ")
+# data_to_sign = "This is a sample data 2"
+# signature = make_signature(data_to_sign)
+# print(signature)
+# print(verify_signature(signature, "This is a sample data 2 3rg5b5g"))
