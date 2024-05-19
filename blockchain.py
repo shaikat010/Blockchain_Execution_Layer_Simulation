@@ -1,10 +1,12 @@
 import datetime as _dt
 import hashlib as _hashlib
 import json as _json
+from generate_peer_id import generate_new_peer_id
 
 
 class Blockchain:
     def __init__(self):
+        self.peer_id = generate_new_peer_id()
         self.chain = list()
         initial_block = self._create_block(
             data="genesis block", proof=1, previous_hash="0", index=1
@@ -26,7 +28,7 @@ class Blockchain:
         return block
 
     def _create_block(
-        self, data: str, proof: int, previous_hash: str, index: int
+            self, data: str, proof: int, previous_hash: str, index: int
     ) -> dict:
         block = {
             "index": index,
@@ -36,7 +38,8 @@ class Blockchain:
             "previous_hash": previous_hash,
         }
 
-        with open("block_data.txt",'a') as file:
+        block_data_file_name = str(self.peer_id)
+        with open(f"Peer_Block_Data/{block_data_file_name}.txt", 'a') as file:
             file.write(str(block))
             file.write('\n')
 
@@ -101,4 +104,13 @@ class Blockchain:
 
         return True
 
+    # This is an additional method to allow for block addition form the peer
+    def add_block_from_leader(self,block) -> bool:
+        self.chain.append(block)
+        block_data_file_name = str(self.peer_id)
+        with open(f"Peer_Block_Data/{block_data_file_name}.txt", 'a') as file:
+            file.write(str(block))
+            file.write('\n')
+        status = self.is_chain_valid()
+        return status
 

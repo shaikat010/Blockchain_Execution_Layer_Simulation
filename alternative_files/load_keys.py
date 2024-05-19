@@ -6,7 +6,7 @@ from ecdsa.util import sigencode_der, sigdecode_der
 with open("../vk.pem") as f:
     vk = VerifyingKey.from_pem(f.read())
 
-with open("../data", "rb") as f:
+with open("data", "rb") as f:
     data = f.read()
 
 # # I am currently here at the moment!

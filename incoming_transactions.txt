@@ -7,3 +7,6 @@
 'john','alex',306
 'john','alex',305
 'john','Shaikat',300
+'john','hamim',600
+'john','hamim',600
+'john','hasib',800

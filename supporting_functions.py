@@ -1,6 +1,7 @@
 from create_keys_signatures import get_private_signing_key, make_signature, get_public_verifying_key, verify_signature
 import time
 
+
 def build_transaction(data):
     public_key = get_public_verifying_key()
     data.append(time.time())
@@ -18,7 +19,6 @@ def build_transaction(data):
     }
 
     return transaction
-
 
 # built_txn = build_transaction(['Tom', 'sam', 101])
 # print("This is the transaction that was built: ")

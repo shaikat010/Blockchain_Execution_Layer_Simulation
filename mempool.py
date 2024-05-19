@@ -1,23 +1,14 @@
-# The transaction will be stored here initially,
-# The transaction validity will be checked here as well
-# Only the transactions that are valid will be sent to the blockchain structure
-# The memory pool will also check some other features as well like the timestamp of the transaction etc
-# Structure for keeping the transactions
-# This is for the formatting of the transactions
-# Store the data from the memory pool into the data file or any other file if necessary! --> txn_data
-# We need an index for the transaction
-# also we need a status for the transactions that have been mined already
-
 import time
 import datetime
-from create_keys_signatures import get_private_signing_key, get_public_verifying_key, make_signature, verify_signature
+from create_keys_signatures import verify_signature,get_private_signing_key, get_public_verifying_key, make_signature
 from supporting_functions import build_transaction
 
+index = 0
 
 # The genesis block will be the first index to be mined
 current_txn_index_to_mine = 0
 
-# This is the data structure for the transacitons that are currently requested to be stored
+# This is the data structure for the transactions that are currently requested to be stored
 transaction_pool = []
 
 # The signature will take all the data and then sign it using the private key to create the signature
@@ -86,19 +77,21 @@ def load_requesting_transactions():
 
     return current_requesting_transactions
 
+
 def get_the_Txn_to_mine():
     all_requesting_txns = load_requesting_transactions()
     global current_txn_index_to_mine
     transaction = all_requesting_txns[current_txn_index_to_mine]
     transaction = format_txn(transaction)
     transaction = build_transaction(transaction)
+
     try:
         check_txn_integrity(transaction)
+
     except:
         print("Transaction integrity has not been preserved!")
         return False
+
     current_txn_index_to_mine = current_txn_index_to_mine + 1
     return transaction
 
-
-print(get_the_Txn_to_mine())
