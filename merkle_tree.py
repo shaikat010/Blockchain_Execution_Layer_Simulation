@@ -1,4 +1,4 @@
-# Python code for implemementing Merkle Tree
+# Python code for implementing Merkle Tree
 # This code was contributed by Pranay Arora (TSEC-2023).
 
 from typing import List
@@ -18,7 +18,7 @@ class Node:
         return hashlib.sha256(val.encode('utf-8')).hexdigest()
 
     def __str__(self):
-        return (str(self.value))
+        return str(self.value)
 
     def copy(self):
         """
@@ -79,7 +79,7 @@ class MerkleTree:
 
 
 def mixmerkletree() -> None:
-    # The transaction will go here in the elems segement
+    # The transaction will go here in the elems segment
     elems = ["GeeksforGeeks", "A", "Computer",
              "Science", "Portal", "For", "Geeks"]
     # as there are odd number of inputs, the last input is repeated
