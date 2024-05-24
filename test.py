@@ -45,9 +45,10 @@ def mine_block():
     final_status = None
     chain_validity_status = None
     # CODE UNSTABLE TILL HERE, DO NOT USE THIS PART OF THE CODE!
+
     if len(blockchain.chain) == len(B1.chain) == len(B2.chain) == len(B3.chain) == len(B4.chain):
-        final_status = "The chains are valid and are of the same length!" + "chain length is " + str(
-            len(blockchain.chain))
+        final_status = "The chains are valid and are of the same length!" + "chain length is " + str(len(blockchain.chain))
+
     if blockchain.is_chain_valid() and B1.is_chain_valid() and B2.is_chain_valid() and B3.is_chain_valid() and B4.is_chain_valid():
         chain_validity_status = True
 

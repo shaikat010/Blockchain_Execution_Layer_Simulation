@@ -8,7 +8,7 @@ class Blockchain:
     def __init__(self):
         self.peer_id = generate_new_peer_id()
         self.chain = list()
-        initial_block = self._create_block(
+        initial_block = self._create_genesis_block(
             data="genesis block", proof=1, previous_hash="0", index=1
         )
         self.chain.append(initial_block)
@@ -26,6 +26,25 @@ class Blockchain:
         )
         self.chain.append(block)
         return block
+
+    def _create_genesis_block(
+            self, data: str, proof: int, previous_hash: str, index: int
+    ) -> dict:
+        block = {
+            "index": index,
+            "timestamp": str("Genesis_Time"),
+            "data": data,
+            "proof": proof,
+            "previous_hash": previous_hash,
+        }
+
+        block_data_file_name = str(self.peer_id)
+        with open(f"Peer_Block_Data/{block_data_file_name}.txt", 'a') as file:
+            file.write(str(block))
+            file.write('\n')
+
+        return block
+
 
     def _create_block(
             self, data: str, proof: int, previous_hash: str, index: int

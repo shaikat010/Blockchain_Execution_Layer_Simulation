@@ -22,7 +22,7 @@ app = _fastapi.FastAPI()
 # endpoint to mine a block
 # The data in the mine block has to be according to the memory pool's data only
 @app.post("/mine_block/")
-def mine_block(data: str):
+def mine_block():
     if not blockchain.is_chain_valid():
         return _fastapi.HTTPException(status_code=400, detail="The blockchain is invalid")
 
@@ -40,6 +40,7 @@ def mine_block(data: str):
     # make sure to add the last or the leaf block in that blockchain to all the other chains
 
     # CODE IS UNSTABLE --> DO NOT USE THIS PART OF THE CODE
+    # CODE IS NOW STABLE DUE TO MAKING SURE THAT ALL THE TIMESTAMP FOR ALL THE CHAINS IN THE GENESIS BLOCK IS SAME
     largest = 0
     largest_peer_id = None
     longest_chain = None
@@ -57,10 +58,11 @@ def mine_block(data: str):
     final_status = None
     chain_validity_status = None
     # CODE UNSTABLE TILL HERE, DO NOT USE THIS PART OF THE CODE!
+
     if len(blockchain.chain) == len(B1.chain) == len(B2.chain) == len(B3.chain) == len(B4.chain):
-        final_status = "The chains are valid and are of the same length!" + "chain length is " + str(len(blockchain.chain))
-    if blockchain.is_chain_valid() and B1.is_chain_valid() and B2.is_chain_valid() and B3.is_chain_valid() and B4.is_chain_valid():
-        chain_validity_status = True
+        final_status = "The chains are valid and are of the same length!" + "Chain length is " + str(len(blockchain.chain))
+        if blockchain.is_chain_valid() and B1.is_chain_valid() and B2.is_chain_valid() and B3.is_chain_valid() and B4.is_chain_valid():
+            chain_validity_status = True
 
     print("This is the final status:")
     print(final_status)
