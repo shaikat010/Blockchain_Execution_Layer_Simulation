@@ -7,6 +7,8 @@ from starlette.responses import FileResponse
 from supporting_functions import build_transaction
 from Leader_Selection_Raft import select_block_leader
 
+personal_access_token = 323232
+
 # We will be running multiple blockchains here in the next version
 blockchain = _blockchain.Blockchain()
 B1 = _blockchain.Blockchain()
@@ -116,9 +118,12 @@ def previous_block():
 
 # endpoint to get the private key
 @app.get("/get_private_key")
-def get_node_private_keys():
-    if not get_private_signing_key() and get_public_verifying_key():
+def get_node_private_keys(data:int):
+    if not get_private_signing_key() and get_public_verifying_key() and data != personal_access_token:
         return _fastapi.HTTPException(status_code=400, detail="The private key could not be found!")
+
+    if data != personal_access_token:
+        return _fastapi.HTTPException(status_code=401, detail="Incorrect personal access token has been given!")
 
     return FileResponse('sk.pem')
 

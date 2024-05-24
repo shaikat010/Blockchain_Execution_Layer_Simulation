@@ -1,0 +1,1 @@
+{'index': 1, 'timestamp': 'Genesis_Time', 'data': 'genesis block', 'proof': 1, 'previous_hash': '0'}
