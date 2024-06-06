@@ -1,5 +1,4 @@
 fastapi~=0.78.0
-blockchain~=1.4.4
 starlette~=0.19.1
 DateTime~=4.7
 ecdsa~=0.18.0
