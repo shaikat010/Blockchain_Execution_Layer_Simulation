@@ -87,9 +87,6 @@ class Blockchain:
         return new_proof
 
     def _hash(self, block: dict) -> str:
-        """
-        Hash a block and return the crytographic hash of the block
-        """
         encoded_block = _json.dumps(block, sort_keys=True).encode()
 
         return _hashlib.sha256(encoded_block).hexdigest()
@@ -123,7 +120,7 @@ class Blockchain:
 
         return True
 
-    # This is an additional method to allow for block addition form the peer
+    # This is the method to allow for block addition form the peer that was the round leader
     def add_block_from_leader(self,block) -> bool:
         self.chain.append(block)
         block_data_file_name = str(self.peer_id)
@@ -132,4 +129,5 @@ class Blockchain:
             file.write('\n')
         status = self.is_chain_valid()
         return status
+
 

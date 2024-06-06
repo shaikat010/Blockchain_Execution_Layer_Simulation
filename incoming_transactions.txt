@@ -10,3 +10,8 @@
 'john','hamim',600
 'john','hamim',600
 'john','hasib',800
+'john','hasib',900
+'john','hamim',400
+'john','hamim',200
+'john','hamim',100
+'john','hamim',10000

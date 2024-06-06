@@ -4,3 +4,5 @@ starlette~=0.19.1
 DateTime~=4.7
 ecdsa~=0.18.0
 requests~=2.25.1
+uvicorn~=0.17.6
+pymongo~=3.11.0

@@ -8,7 +8,7 @@ def create_keys():
     private_key = SigningKey.generate(curve=NIST384p)
     print(private_key)
 
-    # creating the public key from the
+    # creating the public key from the private key
     public_key = private_key.get_verifying_key()
     print(public_key)
 
@@ -52,11 +52,3 @@ def verify_signature(Signature, data):
 
     return Status
 
-# print(get_public_verifying_key())
-# Signing_Key = get_private_signing_key()
-# print(Signing_Key)
-# print("This is the signature: ")
-# data_to_sign = "This is a sample data 2"
-# signature = make_signature(data_to_sign)
-# print(signature)
-# print(verify_signature(signature, "This is a sample data 2 3rg5b5g"))

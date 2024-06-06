@@ -5,7 +5,7 @@ from supporting_functions import build_transaction
 
 index = 0
 
-# The genesis block will be the first index to be mined
+# Gives the current index of the transaction that is to be mined
 current_txn_index_to_mine = 0
 
 # This is the data structure for the transactions that are currently requested to be stored
@@ -61,7 +61,6 @@ def check_txn_integrity(incoming_transaction):
 def format_txn(transaction_data):
     formatted_transaction = transaction_data.split(",")
     return formatted_transaction
-    # also convert transaction into a dictionary here
 
 
 def get_current_index_to_mine():
@@ -89,6 +88,7 @@ def get_the_Txn_to_mine():
         check_txn_integrity(transaction)
 
     except:
+
         print("Transaction integrity has not been preserved!")
         return False
 
