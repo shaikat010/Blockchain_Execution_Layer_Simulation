@@ -11,3 +11,7 @@ This project simulates the working of a custom blockchain execution layer. It co
 6. Blockchain Validation and Leader Block Validation
 7. Raft Consensus Mechanism
 8. API Buioding using FastAPI
+
+# Project Architecture Overview
+
+![image](https://github.com/shaikat010/Blockchain_Execution_Layer_Simulation/assets/68814937/b7098b5f-9ca5-4fbc-a894-e5356b1969eb)
